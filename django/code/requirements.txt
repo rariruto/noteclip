@@ -1,0 +1,6 @@
+numpy
+django
+mysqlclient
+psycopg2-binary
+django-bootstrap5
+django-mathfilters

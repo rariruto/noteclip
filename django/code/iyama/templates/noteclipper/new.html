@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+
+<h1>ユーザ作成</h1>
+
+<form action='' method='post'>
+  {{ form.as_p }}
+  {% csrf_token %}
+  <button type='submit'> create </button>
+</form>
+<div>
+  <button onclick='JavaScript:history.back()'>back</button>
+</div>
+
+{% endblock %}

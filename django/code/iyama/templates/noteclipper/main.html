@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% load get %}
+
+enctype="multipart/form-data"
+
+{% block content %}
+  <h1>画像出力</h1>
+    <table border="10">
+      <tr>
+      {% for article in object_list %}
+        <th>  {{ article.title }} </th>
+      {% endfor %}
+      </tr>
+      <tr>
+      {% for article in object_list %}
+      <td><a href='{% url "noteclipper:clip" article.pk %}'><img src="{% static article.title %}" style="width: 300px; height: auto" /></a></td>
+      {% endfor %}
+      </tr>
+    </table>
+
+{% endblock content %}

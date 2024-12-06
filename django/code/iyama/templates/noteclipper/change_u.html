@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+    <h1 class="mt-5">NoteCutter 作成中</h1>
+    {% for article in object_list %}
+      <div class="card bg-light shadow-sm mt-3">
+        <div class="card-body">
+          <p>{{ article.name }} : {{ article.passwd }}</p>
+          <p>{{ article.login_time }}</p>
+        </div>
+      </div>
+    {% endfor %}
+
+    <!-- 新規ユーザ-->
+    <div class="mt-3">
+      <a href="{% url 'noteclipper:new' %}">
+        {% bootstrap_button button_type="submit" content="add" size="md" %}
+      </a>
+    </div>
+    <p><a href='{% url "noteclipper:setting" %}'>設定</a></p>
+
+{% endblock %}

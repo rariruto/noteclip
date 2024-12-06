@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% load get %}
+{% load mathfilters %}
+
+{% block content %}
+{% with back=note.pk|sub:1 %}
+{% with next=note.pk|add:1 %}
+    <h1 class="mt-5">NoteCutter 作成中</h1>
+    <div class="container">
+      <p>{% static note.title %}</p>
+      {% if back > 0 %}
+        <a href='{% url "noteclipper:clip" back %}'>戻る</a>
+      {% endif %}
+      <a href='{% url "noteclipper:clip" next %}'>次へ</a><br>
+
+      <input type="button" value=クラス更新 id=class_update></p>
+      <input type="button" onclick='location.href="{% url 'noteclipper:main'%}"' value="戻る"></p>
+      <img src="{% static note.title %}" style="width: 300px; height: auto" />
+      {% for class in object_list2 %}
+      {% if class.activate == True %}
+      <br><p>{{class.name}}</p>
+        {% for bmp in object_list3 %}
+	    {% with 'cut_img/'|add:bmp as result%}
+	      {% if class.name in bmp %}
+	        {%  if note.title|slice:"8:-4" in bmp%}
+	        <p>{% static result %} </p>
+                <img src="{% static result %}" style="width: 100px; height: auto" />
+		{% endif %}
+	      {% endif %}
+          {% endwith %}
+        {% endfor %}
+	{%endif%}
+      {% endfor %}
+    </div>
+{% endwith %}
+{% endwith %}
+
+<script>
+let update = document.getElementById('class_update');
+	update.addEventListener('click', () =>{
+	open('{% url "noteclipper:activate_home" %}',
+	     null,
+	     'width=500, height=500',
+	     'workwindow');
+});
+
+</script>
+
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+
+    <h1>NoteCutter 作成中 : setting</h1>
+    {% for article in object_list %}
+      <div class="container">
+        <p>{{ article.name }} : {{ article.passwd }}</p>
+	<p>{{ article.login_time }}</p>
+      </div>
+    {% endfor %}
+
+    <p><a href='{% url "noteclipper:select" %}'>選択</a></p>
+    <p><a href='{% url "noteclipper:add" %}'>追加</a></p>
+    <p><a href='{% url "noteclipper:main" %}'>メイン</a></p>
+{% endblock %}

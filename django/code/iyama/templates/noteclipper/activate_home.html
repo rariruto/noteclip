@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% load get %}
+{% load mathfilters %}
+
+{% block content %}
+    <h1 class="mt-5">クラス更新</h1>
+    <div class="container">
+      {% for class in object_list %}
+      <p>{{class.name}}
+      <input type="button" onclick='location.href="{% url 'noteclipper:activate' class.pk %}"' value="切り替え"></p>
+      {% endfor %}
+    </div>
+
+{% endblock %}

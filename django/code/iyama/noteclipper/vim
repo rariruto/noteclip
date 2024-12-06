@@ -1,0 +1,10 @@
+def get(file_name):
+    csv_file = request.FILES(file_name)
+
+    for line in csv_file:
+      line_count+= 1
+
+      if line_count <= 2:
+        continue
+
+      try
