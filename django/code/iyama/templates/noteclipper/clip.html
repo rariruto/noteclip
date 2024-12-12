@@ -7,17 +7,19 @@
 {% block content %}
 {% with back=note.pk|sub:1 %}
 {% with next=note.pk|add:1 %}
-    <h1 class="mt-5">NoteCutter 作成中</h1>
     <div class="container">
       <p>{% static note.title %}</p>
-      {% if back > 0 %}
-        <a href='{% url "noteclipper:clip" back %}'>戻る</a>
-      {% endif %}
-      <a href='{% url "noteclipper:clip" next %}'>次へ</a><br>
 
-      <input type="button" value=クラス更新 id=class_update></p>
-      <input type="button" onclick='location.href="{% url 'noteclipper:main'%}"' value="戻る"></p>
-      <img src="{% static note.title %}" style="width: 300px; height: auto" />
+      <input class="btn btn-primary rightpos" type="button" value=クラス更新 id=class_update></p>
+      <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
+        {% for class in object_list2 %}
+          <button tpye="button" class="btn btn-primary" onclick='location.href="{% url 'noteclipper:main'%}"'>{{class.name}}</button>
+        {% endfor %}
+      </div><br>
+      <a class="btn btn-primary" href='{% url "noteclipper:clip" back %}' role="button">＜Back</a>
+      <img src="{% static note.title %}" class="image-fluid" style="width: 400px; height: auto" />
+      <a class="btn btn-primary" href='{% url "noteclipper:clip" next %}' role="button">Next＞</a>
+
       {% for class in object_list2 %}
       {% if class.activate == True %}
       <br><p>{{class.name}}</p>
