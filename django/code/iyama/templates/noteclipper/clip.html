@@ -21,7 +21,7 @@
         <div class="position-absolute top-50 start-50 translate-middle"><img src="{% static note.title %}" class="image-fluid" style="width: auto; height: 600px" usemap="#NoteMap" /></div>
         <map name="NoteMap">
           <area shape="rect" coords="0,0,500,300" href="{% url 'noteclipper:main'%}">
-          <area shape="rect" coords="0,300,500,600" href="{% url 'noteclipper:main'%}">
+          <area shape="rect" coords="0,301,500,600" href="{% url 'noteclipper:main'%}">
         </map>
         <div class="position-absolute top-50 end-0 translate-middle-y"><a class="btn btn-primary position-relative" href='{% url "noteclipper:clip" next %}' role="button">Next＞</a></div>
       </div><br>
