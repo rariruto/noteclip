@@ -5,26 +5,28 @@
 {% load mathfilters %}
 
 {% block content %}
-    <div class="btn-group-vertical position-absolute top-50 start-0 translate-middle-y" role="group" aria-label="Basic checkbox toggle button group">
+    <div class="btn-group-vertical position-absolute start-50 top-50 translate-middle" role="group" aria-label="Basic checkbox toggle button group">
+
+
 
       {% for class in object_list %}
         {% if class.activate == 1 %}      
-          <input type="checkbox" class="btn-check" id= {{class.name}} autocomplete="on">
+          <input type="checkbox" class="btn-check" id= {{class.name}}  name="class[]" />
         {% else %}
-          <input type="checkbox" class="btn-check" id= {{class.name}} autocomplete="on">
+          <input type="checkbox" class="btn-check" id= {{class.name}} name="class[]" />
         {% endif %}
       
-        <label class="btn btn-outline-primary" for={{class.name}}>{{class.name}}</label>
+        <label class="btn btn-outline-primary" for={{class.name}} >{{class.name}}</label>
 
-      {% endfor %}          
+      {% endfor %}
+
+      
+       
+    </div>
+    <div class="d-grid gap-2 -dmd-block position-absolute top-100 start-50 translate-middle">
+      <button type="button" id="toggleButton" class="btn btn-primary">ALL</button>
+      <button type="button" class="btn btn-primary">Activate</button>
     </div>
 
-    <div class="d-grid gap-2 d-md-block position-absolute start-50 top-100 translate-middle">
-      <button type="button" class="btn btn-primary ">ALL</button>
-      <button type="button" class="btn btn-primary ">NO</button>
-    </div>
-
-    <button type="button" class="btn btn-primary position-absolute start-50 top-50 translate-middle-y">activate</button>
-
-
+    
 {% endblock %}

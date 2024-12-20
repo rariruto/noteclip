@@ -60,10 +60,20 @@
         update.addEventListener('click', () =>{
         open('{% url "noteclipper:activate" %}',
              null,
-             'width=250, height=400, scrollbars=no',
+             'width=250, height=500',
              'workwindow');
       });
       
+      const toggleButton = document.getElementById('toggleButton');
+      const checkboxes = document.getElementsByName('class[]');
+      
+      toggleButton.addEventListener('click', () => {
+        const isChecked = checkboxes[0].checked;
+
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = !isChecked;
+        });
+      });
       </script>
   </body>
 </html>
