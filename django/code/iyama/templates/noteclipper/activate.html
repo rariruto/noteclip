@@ -5,12 +5,26 @@
 {% load mathfilters %}
 
 {% block content %}
-    <h1 class="mt-5">クラス更新</h1>
-    <div class="container">
+    <div class="btn-group-vertical position-absolute top-50 start-0 translate-middle-y" role="group" aria-label="Basic checkbox toggle button group">
+
       {% for class in object_list %}
-      <p>{{class.name}}
-      <input type="button" onclick='location.href="{% url 'noteclipper:activate' %}"' value="切り替え"></p>
-      {% endfor %}
+        {% if class.activate == 1 %}      
+          <input type="checkbox" class="btn-check" id= {{class.name}} autocomplete="on">
+        {% else %}
+          <input type="checkbox" class="btn-check" id= {{class.name}} autocomplete="on">
+        {% endif %}
+      
+        <label class="btn btn-outline-primary" for={{class.name}}>{{class.name}}</label>
+
+      {% endfor %}          
     </div>
+
+    <div class="d-grid gap-2 d-md-block position-absolute start-50 top-100 translate-middle">
+      <button type="button" class="btn btn-primary ">ALL</button>
+      <button type="button" class="btn btn-primary ">NO</button>
+    </div>
+
+    <button type="button" class="btn btn-primary position-absolute start-50 top-50 translate-middle-y">activate</button>
+
 
 {% endblock %}

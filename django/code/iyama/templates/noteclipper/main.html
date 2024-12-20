@@ -9,13 +9,13 @@
 {% with next=note.pk|add:1 %}
     <div class="container">
       <p>{% static note.title %}</p>
-
+<!--
       <div class="btn-group position-absolute top-10 start-50 translate-middle-x" role="group" aria-label="Large button group">
         {% for class in object_list2 %}
           <button tpye="button" class="btn btn-primary" onclick='location.href="{% url 'noteclipper:home' %}"'>{{class.name}}</button>
         {% endfor %}
       </div><br>
-      
+    -->
       <div class="positiion-relative">
         <div class="position-absolute top-50 start-0 translate-middle-y"><a class="btn btn-primary" href='{% url "noteclipper:main" back %}' role="button">＜Back</a></div>
         <div class="position-absolute top-50 start-50 translate-middle"><img src="{% static note.title %}" class="image-fluid" style="width: auto; height: 600px" usemap="#NoteMap" /></div>
