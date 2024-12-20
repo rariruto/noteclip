@@ -121,3 +121,20 @@ def task_add(request):
             post.image = request.FILES['image']
             post.save()
             return redirect('noteclipper:main')
+
+def update(request, class_type, activate):
+    message = ''
+    class_obj = Class.objects.get(class_type=class_type)
+    if activate == 1:
+        update_dict = {
+            'class': class_type,
+            'activate': True,
+        }
+    else:
+        update_dict = {
+            'class': class_type,
+            'activate': False,
+        }
+    return render(request, 'noteclipper/activate.html', update_dict)
+
+

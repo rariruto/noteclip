@@ -11,6 +11,7 @@ urlpatterns = [
     path('<int:pk>/', views.MainView.as_view(), name='main'),
     #path('//', views.ClipView.as_view(), name='clip'),
     path('activate/', views.ActivateView.as_view(), name='activate'),
+    path('activate/<str:class_type>/<int:activate>', views.update, name='update'),
     #path('activate/<int:pk>', views.ActivateView.as_view(), name='activate'),
     path('setting/', views.SettingView.as_view(), name='setting'),
     path('information', views.InformationView.as_view(), name='information'),
