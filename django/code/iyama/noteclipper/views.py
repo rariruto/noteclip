@@ -7,10 +7,10 @@ import re
 #from .forms import ImageForm
 
 # Create your views here
-class MainView(generic.ListView):
+class HomeView(generic.ListView):
     model = Note
     check = True
-    template_name = 'noteclipper/main.html'
+    template_name = 'noteclipper/home.html'
     all_data = Note.objects.all()
     title_c = "aaa"
     files = glob.glob("static/noteclipper/reference/org_img/*")
@@ -34,9 +34,9 @@ class NewAccountView(generic.ListView):
     template_name = 'noteclipper/new.html'
     fields = '__all__'
 
-class ClipView(generic.DetailView):
+class MainView(generic.DetailView):
     model = Note
-    template_name = 'noteclipper/clip.html'
+    template_name = 'noteclipper/main.html'
 
     def get_context_data(self, **kwargs):
         bmp_a = []
@@ -46,7 +46,7 @@ class ClipView(generic.DetailView):
             bmp_a.append((re.search(('/\w*/\w*/\w*.bmp'), i))[0])
 
 
-        context = super(ClipView, self).get_context_data(**kwargs)
+        context = super(MainView, self).get_context_data(**kwargs)
         context.update({'object_list2':Class.objects.all(),})
         context.update({'object_list3':bmp_a})
         return context
@@ -54,14 +54,34 @@ class ClipView(generic.DetailView):
     def get_queryset(self):
         return Note.objects.all()
 
-class ActivateHomeView(generic.ListView):
-    model = Class
-    template_name = 'noteclipper/activate_home.html'
+#class ClipView(generic.DetailView):
+#    model = Note
+#    template_name = 'noteclipper/clip.html'
 
-class ActivateView(generic.edit.UpdateView):
+#    def get_context_data(self, **kwargs):
+#        bmp_a = []
+#        bmp_b = glob.glob('static/noteclipper/reference/cut_img/*/*/*')
+
+#        for i in bmp_b:
+#            bmp_a.append((re.search(('/\w*/\w*/\w*.bmp'), i))[0])
+
+
+#        context = super(ClipView, self).get_context_data(**kwargs)
+#        context.update({'object_list2':Class.objects.all(),})
+#        context.update({'object_list3':bmp_a})
+#        return context
+
+#    def get_queryset(self):
+#        return Note.objects.all()
+
+class ActivateView(generic.ListView):
     model = Class
     template_name = 'noteclipper/activate.html'
-    fields = '__all__'
+
+#class ActivateView(generic.edit.UpdateView):
+#    model = Class
+#    template_name = 'noteclipper/activate.html'
+#    fields = '__all__'
     
 class SettingView(generic.ListView):
     model = Note

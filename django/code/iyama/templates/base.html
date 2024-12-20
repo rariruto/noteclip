@@ -18,7 +18,7 @@
   <body>
     <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'noteclipper:main'%}">Note Clip</a>
+      <a class="navbar-brand" href="{% url 'noteclipper:home'%}">Note Clip</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -26,13 +26,13 @@
       <div class="collapse navbar-collapse" id="navbarsExample01">
         <ul class="navbar-nav me-auto mb-2">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'noteclipper:main'%}">Home</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'noteclipper:home'%}">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">ノート追加</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" id="class_update">クラス切り替え</a>
+            <a class="nav-link active" aria-current="page" id="class_update" target="_blank">クラス切り替え</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'noteclipper:setting'%}">設定</a>
@@ -54,6 +54,16 @@
   </nav>
     {% block content %}
     {% endblock content %}
-	
+
+    <script>
+      let update = document.getElementById('class_update');
+        update.addEventListener('click', () =>{
+        open('{% url "noteclipper:activate" %}',
+             null,
+             'width=500, height=500',
+             'workwindow');
+      });
+      
+      </script>
   </body>
 </html>

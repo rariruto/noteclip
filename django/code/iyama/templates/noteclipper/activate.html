@@ -1,16 +1,16 @@
-{%extends "base.html" %}
+{% extends "base.html" %}
 {% load django_bootstrap5 %}
 {% load static %}
 {% load get %}
 {% load mathfilters %}
 
 {% block content %}
-    <h1 class="mt-5">クラス切り替え</h1>
+    <h1 class="mt-5">クラス更新</h1>
     <div class="container">
-      <form action='' method='post'>{% csrf_token %}
-        {{ form.as_p }}
-	<button type='submit'>Activate</button>
-	<input type="button" onclick="history.back()" value="戻る">
-	</form>
+      {% for class in object_list %}
+      <p>{{class.name}}
+      <input type="button" onclick='location.href="{% url 'noteclipper:activate' %}"' value="切り替え"></p>
+      {% endfor %}
     </div>
+
 {% endblock %}

@@ -11,7 +11,12 @@
       </div>
     {% endfor %}
 
-    <p><a href='{% url "noteclipper:select" %}'>選択</a></p>
-    <p><a href='{% url "noteclipper:add" %}'>追加</a></p>
-    <p><a href='{% url "noteclipper:main" %}'>メイン</a></p>
+    <h1>設定</h1>
+
+    <div class="d-grid gap-2">
+      <button class="btn btn-primary" type="button" onclick=location.href="{% url 'noteclipper:login' %}">ログイン</button>
+      <button class="btn btn-primary" type="button" onclick=location.href="{% url 'noteclipper:new' %}">新規登録</button>
+      <button class="btn btn-primary" type="button" onclick=location.href="{% url 'noteclipper:home' %}">ホーム</button>
+      <button class="btn btn-primary" type="button" onclick=location.href="{% url 'noteclipper:setting' %}">設定</button>
+      </div>
 {% endblock %}
