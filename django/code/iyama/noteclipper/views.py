@@ -77,6 +77,7 @@ class MainView(generic.DetailView):
 class ActivateView(generic.ListView):
     model = Class
     template_name = 'noteclipper/activate.html'
+    field='__all__'
 
 #class ActivateView(generic.edit.UpdateView):
 #    model = Class
@@ -122,18 +123,27 @@ def task_add(request):
             post.save()
             return redirect('noteclipper:main')
 
-def update(request, class_type, activate):
+def update(request, class_type):
     message = ''
-    class_obj = Class.objects.get(class_type=class_type)
-    if activate == 1:
+    class_obj = Class.objects.get(name=class_type)
+    form = ClassForm(instance=class_obj)
+    if request.method == "POST":
+        form = ClassForm(request.POST, instance=class_obj)
+        if  form.is_valid():
+            form.save()
+            return redirect('/activate')
+        else:
+            message = '再入力'
+
+    if(class_obj.activate == 1):
         update_dict = {
-            'class': class_type,
-            'activate': True,
+            'name': class_type,
+            'activate': False,
         }
     else:
         update_dict = {
-            'class': class_type,
-            'activate': False,
+            'name': class_type,
+            'activate': True,
         }
     return render(request, 'noteclipper/activate.html', update_dict)
 

@@ -11,9 +11,9 @@
 
       {% for class in object_list %}
         {% if class.activate == 1 %}      
-          <button type="button" class="btn btn-primary btn-success" onclick=location.href="{% url 'noteclipper:activate' %}">{{ class.name }}</button>
+          <button type="button" class="btn btn-primary btn-success" onclick=location.href="{% url 'noteclipper:update' class.name%}" method="post">{{ class.name }}</button>
         {% else %}
-          <button type="button" class="btn btn-primary btn-danger">{{ class.name }}</button>
+          <button type="button" class="btn btn-primary btn-danger" onclick=location.href="{% url 'noteclipper:update' class.name%}" method="post">{{ class.name }}</button>
         {% endif %}
       
       {% endfor %}
