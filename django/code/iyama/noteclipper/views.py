@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from django.http import Http404
 from .models import User, Note,Class
@@ -79,6 +79,8 @@ class ActivateView(generic.ListView):
     template_name = 'noteclipper/activate.html'
     field='__all__'
 
+    http_method_names = ['get', 'post']
+
 #class ActivateView(generic.edit.UpdateView):
 #    model = Class
 #    template_name = 'noteclipper/activate.html'
@@ -123,28 +125,22 @@ def task_add(request):
             post.save()
             return redirect('noteclipper:main')
 
-def update(request, class_type):
-    message = ''
-    class_obj = Class.objects.get(name=class_type)
-    form = ClassForm(instance=class_obj)
-    if request.method == "POST":
-        form = ClassForm(request.POST, instance=class_obj)
-        if  form.is_valid():
-            form.save()
-            return redirect('/activate')
-        else:
-            message = '再入力'
+def update(request):
+    class_type = Class.objects.all()
 
-    if(class_obj.activate == 1):
-        update_dict = {
-            'name': class_type,
-            'activate': False,
-        }
-    else:
-        update_dict = {
-            'name': class_type,
-            'activate': True,
-        }
-    return render(request, 'noteclipper/activate.html', update_dict)
+    if request.method == 'POST':
+        selecteds = request.POST.getlist('class[]')
 
+        for data in class_type:
+            article = Class.objects.get(name=data.name)
+            article.activate = False
+            article.save()
+      
+        for value in selecteds:
+            article = Class.objects.get(name=value)
+            article.activate = True 
+            article.save()
+            
+        return redirect('noteclipper:activate')
 
+    return render(request, "noteclipper/activate.html")

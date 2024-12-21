@@ -5,28 +5,23 @@
 {% load mathfilters %}
 
 {% block content %}
-    <div class="btn-group-vertical position-absolute start-50 top-50 translate-middle" role="group" aria-label="Basic checkbox toggle button group">
-
-
-
+<form method="post" role="form" action="{% url 'noteclipper:update' %}">
+  {% csrf_token %}
+    <div class="btn-group-vertical form-groups position-absolute start-50 top-50 translate-middle" role="group" aria-label="Basic checkbox toggle button group">
       {% for class in object_list %}
         {% if class.activate == 1 %}      
-          <input type="checkbox" class="btn-check" id= {{class.name}}  name="class[]" checked/>
+          <input type="checkbox" class="btn-check" id= {{class.name}} name="class[]" value={{class.name}} checked/>
         {% else %}
-          <input type="checkbox" class="btn-check" id= {{class.name}} name="class[]" />
+          <input type="checkbox" class="btn-check" id= {{class.name}} name="class[]" value={{class.name}} />
         {% endif %}
       
         <label class="btn btn-outline-primary" for={{class.name}} >{{class.name}}</label>
-
-      {% endfor %}
-
-      
-       
+      {% endfor %}  
     </div>
     <div class="d-grid gap-2 -dmd-block position-absolute top-100 start-50 translate-middle">
       <button type="button" id="toggleButton" class="btn btn-primary">ALL</button>
-      <button type="button" class="btn btn-primary" onclick=location.href="{% url 'noteclipper:activate' %}">Activate</button>
+      <button type="submit" class="btn btn-primary" value="UPDATE" onclick=location.href="{% url 'noteclipper:update' %}">Activate</button>
     </div>
-
+  </form>
     
 {% endblock %}
