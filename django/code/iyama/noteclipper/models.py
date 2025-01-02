@@ -39,6 +39,6 @@ class Clip(models.Model):
     pos = models.BooleanField()
 
     def __str__(self):
-        return self.title
+        return self.file
     def get_absolute_url(self):
         return reverse('noteclipper:main')
