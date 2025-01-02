@@ -1,5 +1,6 @@
 from django.urls import path, re_path
 from . import views
+from . import csv_set
 
 app_name = 'noteclipper'
 
@@ -9,6 +10,7 @@ urlpatterns = [
     path('new/', views.NewAccountView.as_view(), name='new'),
     path('home', views.HomeView.as_view(), name='home'),
     path('<int:pk>/', views.MainView.as_view(), name='main'),
+    path('<int:pk>/<str:title>', csv_set.load_csv, name='clip'),
     #path('//', views.ClipView.as_view(), name='clip'),
     path('activate/', views.ActivateView.as_view(), name='activate'),
     path('update/', views.update, name='update'),

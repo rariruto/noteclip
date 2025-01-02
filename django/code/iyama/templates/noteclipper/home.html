@@ -7,17 +7,19 @@ enctype="multipart/form-data"
 
 {% block content %}
   <h1>画像出力</h1>
-    <table border="10">
-      <tr>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
       {% for article in object_list %}
-        <th>  {{ article.title }} </th>
+      <a href='{% url "noteclipper:main" article.pk %}'>
+        <div class="col">
+          <div class="card h-100 text-bg-dark mb-3" style="max-width: 18rem;">
+            <img src="{% static article.title %}" class="card-img-top" />
+            <div class="card-body">
+              <h5 class="card-title">{{ article.title }}</h5>
+              <p></p>
+            </div>
+          </div>
+          </div>
+        </a>
       {% endfor %}
-      </tr>
-      <tr>
-      {% for article in object_list %}
-      <td><a href='{% url "noteclipper:main" article.pk %}'><img src="{% static article.title %}" style="width: 300px; height: auto" /></a></td>
-      {% endfor %}
-      </tr>
-    </table>
-
+      </div>
 {% endblock content %}
