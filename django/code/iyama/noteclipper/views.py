@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.http import Http404
-from .models import User, Note,Class
+from .models import User, Note,Class,Clip
 import glob
 import re
 #from .forms import ImageForm
@@ -38,15 +38,49 @@ class MainView(generic.DetailView):
     model = Note
     template_name = 'noteclipper/main.html'
 
+class MainUpView(generic.DetailView):
+    model = Note
+
+    template_name = 'noteclipper/main_up.html'
+
     def get_context_data(self, **kwargs):
+        model_clip = Clip.objects.all()
+
         bmp_a = []
         bmp_b = glob.glob('static/noteclipper/reference/cut_img/*/*/*')
 
         for i in bmp_b:
-            bmp_a.append((re.search(('/\w*/\w*/\w*.bmp'), i))[0])
+            data = i.split("/")
+            for j in model_clip:
+                if (data[4]==j.note and (data[5] + '/' + data[6])==j.file and j.pos==True):
+                    bmp_a.append((re.search(('/\w*/\w*/\w*.bmp'), i))[0])
 
+        context = super(MainUpView, self).get_context_data(**kwargs)
+        context.update({'object_list2':Class.objects.all(),})
+        context.update({'object_list3':bmp_a})
+        return context
 
-        context = super(MainView, self).get_context_data(**kwargs)
+    def get_queryset(self):
+        return Note.objects.all()
+
+class MainBottomView(generic.DetailView):
+    model_note = Note
+
+    template_name = 'noteclipper/main_bottom.html'
+
+    def get_context_data(self, **kwargs):
+        model_clip = Clip.objects.all()
+
+        bmp_a = []
+        bmp_b = glob.glob('static/noteclipper/reference/cut_img/*/*/*')
+
+        for i in bmp_b:
+            data = i.split("/")
+            for j in model_clip:
+                if (data[4]==j.note and (data[5] + '/' + data[6])==j.file and j.pos==False):
+                    bmp_a.append((re.search(('/\w*/\w*/\w*.bmp'), i))[0])
+
+        context = super(MainBottomView, self).get_context_data(**kwargs)
         context.update({'object_list2':Class.objects.all(),})
         context.update({'object_list3':bmp_a})
         return context

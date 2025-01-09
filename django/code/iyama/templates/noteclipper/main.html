@@ -9,37 +9,17 @@
 {% with next=note.pk|add:1 %}
     <div class="container">
       <p>{% static note.title %}</p>
-<!--
-      <div class="btn-group position-absolute top-10 start-50 translate-middle-x" role="group" aria-label="Large button group">
-        {% for class in object_list2 %}
-          <button tpye="button" class="btn btn-primary" onclick='location.href="{% url 'noteclipper:home' %}"'>{{class.name}}</button>
-        {% endfor %}
-      </div><br>
-    -->
+
       <div class="positiion-relative">
         <div class="position-absolute top-50 start-0 translate-middle-y"><a class="btn btn-primary" href='{% url "noteclipper:main" back %}' role="button">＜Back</a></div>
         <div class="position-absolute top-50 start-50 translate-middle"><img src="{% static note.title %}" class="image-fluid" style="width: auto; height: 600px" usemap="#NoteMap" /></div>
         <map name="NoteMap">
-          <area shape="rect" coords="0,0,500,300" href="{% url 'noteclipper:home'%}">
-          <area shape="rect" coords="0,301,500,600" href="{% url 'noteclipper:home'%}">
+          <area shape="rect" coords="0,0,500,300" href="{% url 'noteclipper:main_up' note.pk %}">
+          <area shape="rect" coords="0,301,500,600" href="{% url 'noteclipper:main_bottom' note.pk %}">
         </map>
         <div class="position-absolute top-50 end-0 translate-middle-y"><a class="btn btn-primary position-relative" href='{% url "noteclipper:main" next %}' role="button">Next＞</a></div>
       </div><br>
-      {% for class in object_list2 %}
-      {% if class.activate == True %}
-      <br><p>{{class.name}}</p>
-        {% for bmp in object_list3 %}
-	    {% with 'cut_img/'|add:bmp as result%}
-	      {% if class.name in bmp %}
-	        {%  if note.title|slice:"8:-4" in bmp%}
-	        <p>{% static result %} </p>
-                <img src="{% static result %}" style="width: 100px; height: auto" />
-		{% endif %}
-	      {% endif %}
-          {% endwith %}
-        {% endfor %}
-	{%endif%}
-      {% endfor %}
+      
     </div>
 {% endwith %}
 {% endwith %}

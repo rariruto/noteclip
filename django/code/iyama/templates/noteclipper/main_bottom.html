@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% load get %}
+{% load mathfilters %}
+
+{% block content %}
+{% with back=note.pk|sub:1 %}
+{% with next=note.pk|add:1 %}
+    <div class="container">
+      <p>{% static note.title %}</p>
+
+      {% for class in object_list2 %}
+      {% if class.activate == True %}
+      <br><p>{{class.name}}</p>
+        {% for bmp in object_list3 %}
+	    {% with 'cut_img/'|add:bmp as result%}
+	      {% if class.name in bmp %}
+	        {%  if note.title|slice:"8:-4" in bmp%}
+	        <p>{% static result %} </p>
+                <img src="{% static result %}" style="width: 100px; height: auto" />
+		{% endif %}
+	      {% endif %}
+          {% endwith %}
+        {% endfor %}
+	{%endif%}
+      {% endfor %}
+    </div>
+{% endwith %}
+{% endwith %}
+
+
+
+{% endblock content %}
